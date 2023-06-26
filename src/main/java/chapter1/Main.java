@@ -1,18 +1,21 @@
 package chapter1;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 public class Main {
     public static void main(String[] args) {
-        CaesarCipher caesarCipher = new CaesarCipher(3);
-        // ASCII table을 열심히 보면서, 예상되는 문자열을 만들어보자
-        String message = "Hello World!";
-        String expect = "Khoor#Zruog$";
+        ModCalculator modCalculator = new ModCalculator();
+        int base = 3;
+        int exp = 100;
+        int mod = 23;
+        LocalDateTime start = LocalDateTime.now();
+        int remain = modCalculator.powm(base, exp, mod);
+        LocalDateTime end = LocalDateTime.now();
+        Duration between = Duration.between(start, end);
+        int nanoSec = between.getNano();
+        System.out.println("nanoSec = " + nanoSec);
+        System.out.printf("%d^%d mod %d = %d%n", base, exp, mod, remain);
 
-        String encode = caesarCipher.encode(message);
-        boolean encodedAsExpected = encode.equals(expect);
-        System.out.println("encodedAsExpected = " + encodedAsExpected);
-
-        String decode = caesarCipher.decode(encode);
-        boolean decodedAsOrigin = decode.equals(message);
-        System.out.println("decodedAsOrigin = " + decodedAsOrigin);
     }
 }

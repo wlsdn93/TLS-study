@@ -1,4 +1,4 @@
-package chapter1;
+package chapter1.ex1;
 
 public class ModCalculator {
 

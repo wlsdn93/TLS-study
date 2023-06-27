@@ -1,4 +1,4 @@
-package chapter1;
+package chapter1.ex1;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -16,6 +16,5 @@ public class Main {
         int nanoSec = between.getNano();
         System.out.println("nanoSec = " + nanoSec);
         System.out.printf("%d^%d mod %d = %d%n", base, exp, mod, remain);
-
     }
 }

@@ -1,5 +1,7 @@
 package chapter1.ex2;
 
+import util.MathUtils;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -12,7 +14,7 @@ public class PrimitiveRootSearcher {
      */
     public List<Integer> find(Integer number) {
         if (number == null) throw new IllegalArgumentException("Number must not be null");
-        if (!isPrimeNumber(number)) throw new IllegalArgumentException("Number must be a prime number");
+        if (!MathUtils.isPrime(number)) throw new IllegalArgumentException("Number must be a prime number");
         List<Integer> primitiveRoots = new ArrayList<>();
         // 중복되는 나머지 값이 발생하면 연산을 종료한다.
         for (int i = 2; i < number; i++) {
@@ -26,27 +28,6 @@ public class PrimitiveRootSearcher {
             if (set.size() == number - 1) primitiveRoots.add(i);
         }
         return primitiveRoots;
-    }
-
-    /**
-     * 소수 판별은 6k ± 1 최적화를 이용한다.
-     */
-    private Boolean isPrimeNumber(int number) {
-        if (number <= 1) {
-            return false;
-        }
-        if (number <= 3) {
-            return true;
-        }
-        if (number % 2 == 0 || number % 3 == 0) {
-            return false;
-        }
-        for (int i = 5; i * i <= number; i += 6) {
-            if (number % i == 0 || number % (i + 2) == 0) {
-                return false;
-            }
-        }
-        return true;
     }
 
 }

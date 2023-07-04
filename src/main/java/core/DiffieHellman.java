@@ -12,8 +12,8 @@ public class DiffieHellman {
     private BigInteger secretKey;
     private BigInteger peerPublicKey;
     private BigInteger symmetricKey;
-    private final Integer SECRET_KEY_SIZE = 128;
-    private final Integer PRIME_NUMBER_SIZE = 256;
+    private final Integer SECRET_KEY_SIZE = 1024;
+    private final Integer PRIME_NUMBER_SIZE = 1024;
 
     public DiffieHellman(BigInteger primeNumber, BigInteger generator) {
         this.primeNumber = primeNumber;
@@ -43,7 +43,7 @@ public class DiffieHellman {
         return generator;
     }
 
-    public BigInteger getSecretKey() {
+    public BigInteger getPublicKey() {
         return generator.modPow(secretKey, primeNumber);
     }
 

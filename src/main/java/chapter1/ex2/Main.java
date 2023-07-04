@@ -13,11 +13,11 @@ public class Main {
         alice.init(true);
         BigInteger primeNumber = alice.getPrimeNumber();
         BigInteger generator = alice.getGenerator();
-        BigInteger alicePublicKey = alice.getSecretKey();
+        BigInteger alicePublicKey = alice.getPublicKey();
 
         DiffieHellman bob = new DiffieHellman(primeNumber, generator);
         bob.init();
-        BigInteger bobPublicKey = bob.getSecretKey();
+        BigInteger bobPublicKey = bob.getPublicKey();
 
         alice.setPeerPublicKey(bobPublicKey);
         bob.setPeerPublicKey(alicePublicKey);

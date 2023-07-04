@@ -1,4 +1,4 @@
-package chapter0;
+package intro;
 
 import core.Crypto;
 

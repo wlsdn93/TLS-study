@@ -1,13 +1,13 @@
-package chapter1;
+package key_exchange;
 
-import util.MathUtils;
+import core.MathUtils;
 
 import java.math.BigInteger;
 import java.util.Random;
 
 public class DiffieHellman {
 
-    private BigInteger primeNumber;
+    private BigInteger modular;
     private BigInteger generator;
     private BigInteger secretKey;
     private BigInteger peerPublicKey;
@@ -15,8 +15,8 @@ public class DiffieHellman {
     private final Integer SECRET_KEY_SIZE = 1024;
     private final Integer PRIME_NUMBER_SIZE = 1024;
 
-    public DiffieHellman(BigInteger primeNumber, BigInteger generator) {
-        this.primeNumber = primeNumber;
+    public DiffieHellman(BigInteger modular, BigInteger generator) {
+        this.modular = modular;
         this.generator = generator;
     }
 
@@ -29,14 +29,14 @@ public class DiffieHellman {
 
     public void init(Boolean isStater) {
         if (isStater) {
-            primeNumber = MathUtils.generatePrimeNumber(PRIME_NUMBER_SIZE);
-            generator = MathUtils.getRandomPrimitiveRoot(primeNumber);
+            modular = MathUtils.generatePrimeNumber(PRIME_NUMBER_SIZE);
+            generator = MathUtils.getRandomPrimitiveRoot(modular);
         }
         secretKey = new BigInteger(SECRET_KEY_SIZE, new Random());
     }
 
-    public BigInteger getPrimeNumber() {
-        return primeNumber;
+    public BigInteger getModular() {
+        return modular;
     }
 
     public BigInteger getGenerator() {
@@ -44,7 +44,7 @@ public class DiffieHellman {
     }
 
     public BigInteger getPublicKey() {
-        return generator.modPow(secretKey, primeNumber);
+        return generator.modPow(secretKey, modular);
     }
 
     public void setPeerPublicKey(BigInteger peerPublicKey) {
@@ -53,7 +53,7 @@ public class DiffieHellman {
     }
 
     private void setSymmetricKey() {
-        this.symmetricKey = this.peerPublicKey.modPow(secretKey, primeNumber);
+        this.symmetricKey = this.peerPublicKey.modPow(secretKey, modular);
     }
 
     public BigInteger getSymmetricKey() {

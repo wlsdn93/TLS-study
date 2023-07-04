@@ -1,4 +1,4 @@
-package chapter1;
+package key_exchange;
 
 import java.math.BigInteger;
 import java.time.Duration;
@@ -9,11 +9,11 @@ public class Main {
         LocalDateTime start = LocalDateTime.now();
         DiffieHellman alice = new DiffieHellman();
         alice.init(true);
-        BigInteger primeNumber = alice.getPrimeNumber();
+        BigInteger modular = alice.getModular();
         BigInteger generator = alice.getGenerator();
         BigInteger alicePublicKey = alice.getPublicKey();
 
-        DiffieHellman bob = new DiffieHellman(primeNumber, generator);
+        DiffieHellman bob = new DiffieHellman(modular, generator);
         bob.init();
         BigInteger bobPublicKey = bob.getPublicKey();
 

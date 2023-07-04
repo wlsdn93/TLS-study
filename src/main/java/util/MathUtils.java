@@ -101,38 +101,20 @@ public class MathUtils {
         return a.multiply(b).divide(gcd);
     }
 
-    public static BigInteger getRandomPrimitiveRoot(BigInteger number) throws IllegalArgumentException {
-        List<BigInteger> primitiveRoots = findAllPrimitiveRoots(number);
-        if (primitiveRoots.isEmpty()) {
-            return null;
-        }
+    public static BigInteger getRandomPrimitiveRoot(BigInteger number) {
+        int bitLength = number.bitLength() - 1;
+        boolean isPrimitive = false;
+        BigInteger candidate = null;
         Random random = new Random();
-        int rIdx = random.nextInt(primitiveRoots.size());
-        return primitiveRoots.get(rIdx);
+        while(!isPrimitive) {
+            candidate = new BigInteger(bitLength, random);
+            isPrimitive = isPrimitiveRoot(number, candidate);
+        }
+        return candidate;
     }
 
-    private static List<BigInteger> findAllPrimitiveRoots(BigInteger number) {
-        if (number == null) {
-            throw new IllegalArgumentException("Number must not be null");
-        }
-        if (!isPrime(number)) {
-            throw new IllegalArgumentException("Number must be a prime number");
-        }
-        List<BigInteger> primitiveRoots = new ArrayList<>();
-        // 중복되는 나머지 값이 발생하면 연산을 종료한다.
-        for (BigInteger i = BigInteger.TWO; i.compareTo(number) < 0; i = i.add(BigInteger.ONE)) {
-            BigInteger r = BigInteger.ONE;
-            Set<BigInteger> set = new HashSet<>();
-            while (true) {
-                r = r.multiply(i);
-                boolean isNewValue = set.add(r.mod(number));
-                if (!isNewValue) break;
-            }
-            if (set.size() == number.subtract(BigInteger.ONE).intValue()) {
-                primitiveRoots.add(i);
-            }
-        }
-        return primitiveRoots;
+    private static Boolean isPrimitiveRoot(BigInteger number, BigInteger candidate) {
+        return candidate.modPow(number.subtract(BigInteger.ONE), number).equals(BigInteger.ONE);
     }
 }
 

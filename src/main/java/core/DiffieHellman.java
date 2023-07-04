@@ -9,11 +9,11 @@ public class DiffieHellman {
 
     private BigInteger primeNumber;
     private BigInteger generator;
-    private BigInteger publicKey;
+    private BigInteger secretKey;
     private BigInteger peerPublicKey;
     private BigInteger symmetricKey;
-    private final Integer PUBLIC_KEY_SIZE = 8;
-    private final Integer PRIME_NUMBER_SIZE = 12;
+    private final Integer SECRET_KEY_SIZE = 128;
+    private final Integer PRIME_NUMBER_SIZE = 256;
 
     public DiffieHellman(BigInteger primeNumber, BigInteger generator) {
         this.primeNumber = primeNumber;
@@ -32,7 +32,7 @@ public class DiffieHellman {
             primeNumber = MathUtils.generatePrimeNumber(PRIME_NUMBER_SIZE);
             generator = MathUtils.getRandomPrimitiveRoot(primeNumber);
         }
-        publicKey = new BigInteger(PUBLIC_KEY_SIZE, new Random());
+        secretKey = new BigInteger(SECRET_KEY_SIZE, new Random());
     }
 
     public BigInteger getPrimeNumber() {
@@ -43,8 +43,8 @@ public class DiffieHellman {
         return generator;
     }
 
-    public BigInteger getPublicKey() {
-        return generator.modPow(publicKey, primeNumber);
+    public BigInteger getSecretKey() {
+        return generator.modPow(secretKey, primeNumber);
     }
 
     public void setPeerPublicKey(BigInteger peerPublicKey) {
@@ -53,7 +53,7 @@ public class DiffieHellman {
     }
 
     private void setSymmetricKey() {
-        this.symmetricKey = this.peerPublicKey.modPow(publicKey, primeNumber);
+        this.symmetricKey = this.peerPublicKey.modPow(secretKey, primeNumber);
     }
 
     public BigInteger getSymmetricKey() {

@@ -1,6 +1,4 @@
-package chapter1.ex2;
-
-import core.DiffieHellman;
+package chapter1;
 
 import java.math.BigInteger;
 import java.time.Duration;
